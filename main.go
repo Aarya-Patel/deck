@@ -21,6 +21,7 @@ func main() {
 		deck.WithFilter(func(c *card.Card) bool {
 			return c.Suit == card.Hearts
 		}),
+		deck.WithAdditionalDecks(1),
 	)
 
 	for _, card := range *d {
