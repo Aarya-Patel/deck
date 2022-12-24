@@ -1,5 +1,9 @@
 package card
 
+/* ----- Types ------*/
+type Suit int
+type Value int
+
 /* ----- Constants ------*/
 var Suits = [...]Suit{
 	Spades,
@@ -23,10 +27,6 @@ var Values = [...]Value{
 	Queen,
 	King,
 }
-
-/* ----- Types ------*/
-type Suit uint
-type Value uint
 
 /* ----- Enums ------*/
 const (

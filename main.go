@@ -7,10 +7,17 @@ import (
 )
 
 func main() {
-	deck, err := deck.New()
-	if err != nil {
-		panic(err)
-	}
+	var d *deck.Deck
 
-	fmt.Println(deck)
+	d = deck.New(
+		deck.WithCustomSort(func(d *deck.Deck) func(int, int) bool {
+			return func(i, j int) bool {
+				return (*d)[i].Suit > (*d)[j].Suit
+			}
+		}),
+	)
+
+	for _, card := range *d {
+		fmt.Println(*card)
+	}
 }
