@@ -54,6 +54,13 @@ const (
 
 /* ----- Struct ------*/
 type Card struct {
-	Suit  Suit
-	Value Value
+	Suit    Suit
+	Value   Value
+	IsJoker bool
+}
+
+type Config struct {
+	Suit    Suit
+	Value   Value
+	IsJoker bool
 }

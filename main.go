@@ -12,9 +12,11 @@ func main() {
 	d = deck.New(
 		deck.WithCustomSort(func(d *deck.Deck) func(int, int) bool {
 			return func(i, j int) bool {
-				return (*d)[i].Suit > (*d)[j].Suit
+				return (*d)[i].Value > (*d)[j].Value
 			}
 		}),
+		deck.WithJokers(2),
+		deck.WithShuffle(),
 	)
 
 	for _, card := range *d {
