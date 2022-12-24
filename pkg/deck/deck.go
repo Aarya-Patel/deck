@@ -23,8 +23,8 @@ func New(options ...func(*Deck)) *Deck {
 
 func buildDefaultDeck(deck *Deck) {
 	for _, suit := range card.Suits {
-		for _, value := range card.Values {
-			cfg := card.Config{Suit: suit, Value: value, IsJoker: false}
+		for _, rank := range card.Ranks {
+			cfg := card.Config{Suit: suit, Rank: rank}
 			card, err := card.New(cfg)
 			if err != nil {
 				panic(err)
@@ -51,7 +51,7 @@ func WithShuffle() func(*Deck) {
 
 func WithJokers(n int) func(*Deck) {
 	return func(deck *Deck) {
-		cfg := card.Config{Suit: 0, Value: 0, IsJoker: true}
+		cfg := card.Config{Suit: card.Joker, Rank: 0}
 		for i := 0; i < n; i++ {
 			card, err := card.New(cfg)
 			if err != nil {

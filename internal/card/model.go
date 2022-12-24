@@ -2,7 +2,7 @@ package card
 
 /* ----- Types ------*/
 type Suit int
-type Value int
+type Rank int
 
 /* ----- Constants ------*/
 var Suits = [...]Suit{
@@ -12,7 +12,7 @@ var Suits = [...]Suit{
 	Hearts,
 }
 
-var Values = [...]Value{
+var Ranks = [...]Rank{
 	Ace,
 	Two,
 	Three,
@@ -30,7 +30,7 @@ var Values = [...]Value{
 
 /* ----- Enums ------*/
 const (
-	Ace Value = iota + 1
+	Ace Rank = iota + 1
 	Two
 	Three
 	Four
@@ -50,17 +50,16 @@ const (
 	Diamonds
 	Clubs
 	Hearts
+	Joker
 )
 
 /* ----- Struct ------*/
 type Card struct {
-	Suit    Suit
-	Value   Value
-	IsJoker bool
+	Suit Suit
+	Rank Rank
 }
 
 type Config struct {
-	Suit    Suit
-	Value   Value
-	IsJoker bool
+	Suit Suit
+	Rank Rank
 }
