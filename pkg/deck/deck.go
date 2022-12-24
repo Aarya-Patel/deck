@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"sort"
 
-	"github.com/Aarya-Patel/deck/internal/card"
+	"github.com/Aarya-Patel/deck/pkg/card"
 )
 
 type Deck []*card.Card
@@ -59,5 +59,20 @@ func WithJokers(n int) func(*Deck) {
 			}
 			*deck = append(*deck, card)
 		}
+	}
+}
+
+func WithFilter(fn func(*card.Card) bool) func(*Deck) {
+	return func(deck *Deck) {
+		var newDeck Deck
+
+		for _, card := range *deck {
+			shouldFilter := fn(card)
+			if !shouldFilter {
+				newDeck = append(newDeck, card)
+			}
+		}
+
+		*deck = newDeck
 	}
 }
