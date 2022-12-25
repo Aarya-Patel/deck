@@ -6,16 +6,12 @@ import (
 
 /* ----- Package Methods ------*/
 func New(cfg Config) (*Card, error) {
-	if cfg.Suit != Joker && cfg.Rank == 0 {
-		return &Card{}, errors.New("config: Invalid config for New()")
-	}
-
 	if cfg.Suit == Joker {
-		return &Card{Suit: cfg.Suit, Rank: cfg.Rank}, nil
+		return &Card{Suit: cfg.Suit, Rank: 0}, nil
 	}
 
-	if cfg.Suit < Spades || cfg.Suit > Joker {
-		return &Card{}, errors.New("suit: Invalid suit for card")
+	if !IsValidSuit(cfg.Suit) || !IsValidRank(cfg.Rank) {
+		return &Card{}, errors.New("config: Invalid config")
 	}
 
 	if cfg.Rank < Ace || cfg.Rank > King {
@@ -23,4 +19,12 @@ func New(cfg Config) (*Card, error) {
 	}
 
 	return &Card{Suit: cfg.Suit, Rank: cfg.Rank}, nil
+}
+
+func IsValidSuit(s Suit) bool {
+	return (Spades <= s && s <= Joker)
+}
+
+func IsValidRank(r Rank) bool {
+	return (Ace <= r && r <= King)
 }
