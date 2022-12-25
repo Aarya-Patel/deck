@@ -1,6 +1,7 @@
 package card
 
 /* ----- Types ------*/
+//go:generate stringer -type=Suit,Rank -output=card_string.go
 type Suit int
 type Rank int
 

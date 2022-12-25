@@ -21,10 +21,10 @@ func TestDefaultDeck(t *testing.T) {
 			t.Error("Found a joker within the default deck")
 		}
 		if !card.IsValidSuit(c.Suit) {
-			t.Error("Invalid suit", c.Suit)
+			t.Error("Invalid suit", c.Suit.String())
 		}
 		if !card.IsValidRank(c.Rank) {
-			t.Error("Invalid rank", c.Rank)
+			t.Error("Invalid rank", c.Rank.String())
 		}
 		suitCounts[c.Suit-1] += 1
 		rankCounts[c.Rank-1] += 1
@@ -32,12 +32,12 @@ func TestDefaultDeck(t *testing.T) {
 
 	for i, count := range suitCounts {
 		if count != 13 {
-			t.Error("Expected 13 cards of suit:", card.Suits[i], "\nGot", count)
+			t.Error("Expected 13 cards of", card.Suits[i].String(), "\nGot", count)
 		}
 	}
 	for i, count := range rankCounts {
 		if count != 4 {
-			t.Error("Expected 4 cards of rank:", card.Ranks[i], "\nGot", count)
+			t.Error("Expected 4 cards of", card.Ranks[i].String(), "\nGot", count)
 		}
 	}
 }
@@ -75,7 +75,7 @@ func TestCustomSort(t *testing.T) {
 	for i := 1; i < len(*d); i++ {
 		c := (*d)[i]
 		if prevRank < c.Rank {
-			t.Errorf("Previous card rank of %d is smaller than current rank of %d", prevRank, c.Rank)
+			t.Errorf("Previous card rank of %s is smaller than current rank of %s", prevRank.String(), c.Rank.String())
 		}
 		prevRank = c.Rank
 	}
@@ -105,10 +105,10 @@ func TestWithFilter(t *testing.T) {
 	)
 	for _, c := range *d {
 		if c.Suit == card.Diamonds {
-			t.Error("Expected no card with diamond suit")
+			t.Errorf("Expected no card with %s suit", card.Diamonds.String())
 		}
 		if c.Rank == card.Six {
-			t.Error("Expected no card with rank 6")
+			t.Errorf("Expected no card with rank %s", card.Six.String())
 		}
 	}
 }
@@ -127,13 +127,13 @@ func TestWithAdditionalDecks(t *testing.T) {
 
 	for _, c := range *d {
 		if c.Suit == card.Joker {
-			t.Error("Found a joker within the default deck")
+			t.Error("Found a Joker within the default deck")
 		}
 		if !card.IsValidSuit(c.Suit) {
-			t.Error("Invalid suit", c.Suit)
+			t.Errorf("Invalid suit %s", c.Suit.String())
 		}
 		if !card.IsValidRank(c.Rank) {
-			t.Error("Invalid rank", c.Rank)
+			t.Errorf("Invalid rank %s", c.Rank.String())
 		}
 		suitCounts[c.Suit-1] += 1
 		rankCounts[c.Rank-1] += 1
@@ -141,12 +141,12 @@ func TestWithAdditionalDecks(t *testing.T) {
 
 	for i, count := range suitCounts {
 		if count != 13+(numAdditionalDecks*13) {
-			t.Error("Expected 13 cards of suit:", card.Suits[i], "\nGot", count)
+			t.Error("Expected 13 cards of", card.Suits[i].String(), "\nGot", count)
 		}
 	}
 	for i, count := range rankCounts {
 		if count != 4+(numAdditionalDecks*4) {
-			t.Error("Expected 4 cards of rank:", card.Ranks[i], "\nGot", count)
+			t.Error("Expected 4 cards of", card.Ranks[i].String(), "\nGot", count)
 		}
 	}
 }
